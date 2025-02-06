@@ -24,3 +24,15 @@ get("/:currency") do
   @currencies_keys = $currencies_keys # Assign global data
   erb(:currency)
 end
+
+get("/:currency/:foreign_currency") do
+  @currency = params.fetch("currency")
+  @foreign_currency = params.fetch("foreign_currency")
+  api_url_converted = "https://api.exchangerate.host/convert?from=#{@currency}&to=#{@foreign_currency}&amount=1&access_key=#{ENV.fetch("EXCHANGE_RATE_KEY")}"
+  raw_response_converted = HTTP.get(api_url_converted)
+  parsed_converted_data = JSON.parse(raw_response_converted)
+  
+  @result = parsed_converted_data.fetch("result")
+
+  erb(:conversion)
+end
