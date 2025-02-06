@@ -5,3 +5,13 @@
 <a href="/">
   Go back
 </a>
+
+<ul>
+  <% @currencies_keys.each do |foreign_currency| %>
+    <li> 
+      <a href="/<%= @currency %>/<%= foreign_currency %>"> 
+        Convert 1 <%= @currency %> to <%= foreign_currency %>... 
+      </a>
+    </li>
+  <% end %>
+</ul>
